@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script src="~/js/takeimg.js" asp-append-version="true"></script>
+<h1>Please Register or Login</h1>
+@Html.Partial("reg-partial")
+@Html.Partial("login-partial")
+@{
+    if(ViewBag.user!=null){
+        <p>@ViewBag.user.FirstName</p>
+        <!--<p>@ViewBag.user.LastName</p>
+        <p>@ViewBag.user.UserId</p>
+        <p>@ViewBag.user.Email</p>-->
+    }
+    if(ViewBag.ifhasimage!=null && ViewBag.ifhasimage==true)
+    {
+        <button id="displayvideo">Login with your face</button>
+        <div id="videodiv" style="display: none;">
+            <p> Click Face login to login with your face</p>
+            <p id="loginresult" class="error"> </p><br>
+            <button ID="verify" >Face login</button><br><br>
+            <video id="video" width="640" height="480" autoplay="autoplay"></video>
+            <canvas id="canvas" width="640" height="480" style="visibility:hidden" ></canvas>
+            <!--<img id="faceimage" width="640" height="480" style="visibility:hidden" />-->
+        </div>
+    }
+}
+
+
+

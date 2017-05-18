@@ -1,0 +1,26 @@
+@model WeddingPlanner.Models.LoginViewModel
+
+<fieldset>  
+    <legend>Login</legend>
+    <form asp-controller="User" asp-action="Login" method="post">
+        <span class="error" asp-validation-for="LEmail"></span></br>
+        @{
+            if(ViewBag.loginemailexist!=null)
+            {
+                <span class="error">@ViewBag.loginemailexist</span><br>
+            }
+        }
+        <label asp-for="LEmail"></label>
+        <input asp-for="LEmail"/></br>
+        <span class="error" asp-validation-for="LPassword"></span></br>
+        @{
+            if(ViewBag.loginpassword!=null)
+            {
+                <span class="error">@ViewBag.loginpassword</span><br>
+            }
+        }
+        <label asp-for="LPassword"></label>
+        <input asp-for="LPassword"/></br>
+        <button type="submit">Login</button>
+    </form>
+</fieldset>

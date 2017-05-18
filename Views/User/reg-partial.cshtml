@@ -1,0 +1,28 @@
+@model WeddingPlanner.Models.RegisterViewModel
+<fieldset>
+<legend>Register</legend>
+    <form asp-controller="User" asp-action="Register" method="post">
+        <span class="error" asp-validation-for="FirstName"></span></br>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName"/></br>
+        <span class="error" asp-validation-for="LastName"></span></br>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName"/></br>
+        <span class="error" asp-validation-for="Email"></span></br>
+        @{
+            if(ViewBag.emailexist!=null)
+            {
+                <span class="error">@ViewBag.emailexist</span><br>
+            }
+        }
+        <label asp-for="Email"></label>
+        <input asp-for="Email"/></br>
+        <span class="error" asp-validation-for="Password"></span></br>
+        <label asp-for="Password"></label>
+        <input asp-for="Password"/></br>
+        <span class="error" asp-validation-for="ConfirmPassword"></span></br>
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword"/></br>
+        <button type="submit">Register</button>
+    </form>
+</fieldset>
