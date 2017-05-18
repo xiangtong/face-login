@@ -22,6 +22,7 @@ $(document).ready(function(){
                 };
             })
             .catch(function (err) { console.log(err.name + ": " + err.message); }); 
+
     $("#snap").click(function(){
         if (video.readyState == 4) {
             var canvas = $("#canvas")[0];
@@ -60,6 +61,7 @@ $(document).ready(function(){
     $("#verify").click(function(){
       if (video.readyState == 4) {
             var canvas = $("#canvas")[0];
+            var progress =$("#progress")[0];
             // canvas.style.visibility = "visible";
             var context = canvas.getContext("2d");
             context.drawImage(video, 0, 0, 640, 480);
@@ -68,8 +70,10 @@ $(document).ready(function(){
             var base64 = image.src;
             var button=$(this)
             button.prop("disabled",true)
+            progress.style.visibility = "visible";
             $.post('/imglogin', {img:base64}, function(data){
                         if(data.result=="success"){
+                            progress.style.visibility = "none";
                             window.location.href = "/"
                         }
                         else{
