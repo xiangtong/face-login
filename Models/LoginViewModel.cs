@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WeddingPlanner.Models
+namespace FaceLogin.Models
 {
     public class LoginViewModel 
     {

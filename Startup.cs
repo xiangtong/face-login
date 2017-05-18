@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
-using WeddingPlanner.Models;
+using FaceLogin.Models;
 using MySQL.Data.EntityFrameworkCore.Extensions;
 
 
-namespace WeddingPlanner
+namespace FaceLogin
 {
     public class Startup
     {
@@ -28,7 +28,7 @@ namespace WeddingPlanner
             // Add framework services.
             services.AddMvc();
             services.AddSession();
-            services.AddDbContext<BankContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
+            services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
             services.Configure<MSApiKeyOption>(Configuration);
         }
 

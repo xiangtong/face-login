@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WeddingPlanner.Models
+namespace FaceLogin.Models
 {
     public abstract class BaseEntity{}
     public class User:BaseEntity
@@ -14,11 +14,6 @@ namespace WeddingPlanner.Models
         public string Password { get; set; }
         public DateTime CreatedAt {get;set;}
         public string RegImgUrl {get;set;}
-        public List<Activity> Activities {get;set;}
-        public User()
-        {
-            Activities = new List<Activity>();
-        }
         
     }
 }

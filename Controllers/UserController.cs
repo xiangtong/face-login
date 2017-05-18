@@ -2,22 +2,22 @@ using System;
 using System.Collections.Generic;
 // using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WeddingPlanner.Models;
+using FaceLogin.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-// using WeddingPlanner;
+// using FaceLogin;
 
-namespace WeddingPlanner.Controllers
+namespace FaceLogin.Controllers
 {
  public class UserController : Controller
     {
-        private BankContext _context;
+        private UserContext _context;
         private readonly IHostingEnvironment _env;
         private readonly MSApiKeyOption _msoptions;
-        public UserController(BankContext context,IHostingEnvironment env,IOptions<MSApiKeyOption> optionsAccessor)
+        public UserController(UserContext context,IHostingEnvironment env,IOptions<MSApiKeyOption> optionsAccessor)
         {
             _context = context;
             _env = env;
@@ -32,7 +32,7 @@ namespace WeddingPlanner.Controllers
            int? Uid = HttpContext.Session.GetInt32("UserId");
             if(Uid!=null){
                 int userid=(int)Uid;
-                return RedirectToAction("Records","Account",new {userid=userid});
+                return RedirectToAction("Profilepage","Profile",new {userid=userid});
             }
             else
             {
@@ -86,7 +86,7 @@ namespace WeddingPlanner.Controllers
                     CookieOptions options = new CookieOptions();
                     options.Expires = DateTime.Now.AddDays(3650);
                     Response.Cookies.Append("uid", curuser.UserId.ToString(),options);
-                    return RedirectToAction("Records","Account",new {userid=curuser.UserId});
+                    return RedirectToAction("Profilepage","Profile",new {userid=curuser.UserId});
                 }
 
             }
@@ -119,7 +119,7 @@ namespace WeddingPlanner.Controllers
                         CookieOptions options = new CookieOptions();
                         options.Expires = DateTime.Now.AddDays(3650);
                         Response.Cookies.Append("uid", curuser.UserId.ToString(),options);
-                        return RedirectToAction("Records","Account",new {userid=curuser.UserId});
+                        return RedirectToAction("Profilepage","Profile",new {userid=curuser.UserId});
                     }
                 }
             }

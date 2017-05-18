@@ -1,5 +1,5 @@
-@using WeddingPlanner.Models
-@model WeddingPlanner.Models.User
+@using FaceLogin.Models
+@model FaceLogin.Models.User
 <script src="~/js/takeimg.js" asp-append-version="true"></script>
 
 <h1>Welcome &nbsp&nbsp &nbsp @Model.FirstName  </h1>
@@ -36,34 +36,3 @@
 </div>
 
 
-<!--<div id="video1">
-    <p> Click save to save you face as the credential for later login</p>
-    <button ID="snap" >Save</button><button ID="verify" >Verify test</button><br><br>
-    <video id="video" width="640" height="480" autoplay="autoplay"></video>
-<hr>
-    <canvas id="canvas" width="640" height="480" style="visibility:hidden" ></canvas>
-    <hr>    
-    <img id="testimage" width="640" height="480" style="visibility:hidden" />
-</div>-->
-<!--<h2>Current balance &nbsp @ViewBag.balance $</h2>
-<hr>
-<form action="/newactivity" method="post">
-    <p class="error">@ViewData["error"]</p>
-    <Label>Deposit/Withdraw:</Label></br>
-    <input type="number" name="amount" value="0" step=".01">
-    <input type="submit" value="Submit">
-</form>
-<table>
-    <tr>
-        <th>Amount</th>
-        <th>Date</th>
-
-    @foreach(Activity activity in @Model.Activities){
-    <tr>
-        <td>@activity.Amount</td>
-        @{string date=$"{@activity.CreatedAt:MMM,dd yyyy HH:mm:ss}";}
-        <td>@date</td>
-    </tr>
-    }
-    </tr>
-</table>-->

@@ -1,4 +1,4 @@
-namespace WeddingPlanner
+namespace FaceLogin
 {
     public class MSApiKeyOption
     {

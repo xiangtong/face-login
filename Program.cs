@@ -1,7 +1,7 @@
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace WeddingPlanner
+namespace FaceLogin
 {
     public class Program
     {

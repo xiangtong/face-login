@@ -66,12 +66,15 @@ $(document).ready(function(){
             var image = new Image();
             image.src = canvas.toDataURL("image/png",0.1);
             var base64 = image.src;
+            var button=$(this)
+            button.prop("disabled",true)
             $.post('/imglogin', {img:base64}, function(data){
                         if(data.result=="success"){
                             window.location.href = "/"
                         }
                         else{
                             $("#loginresult").text("Login fail.Please use username and password to login")
+                            button.prop("disabled",false)
                         }
                     },'json')
         }
