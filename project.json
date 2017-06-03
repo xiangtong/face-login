@@ -13,7 +13,8 @@
     "Microsoft.Extensions.Configuration": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "MySql.Data.EntityFrameworkCore": "7.0.7-M61",
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0"
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0"
   },
 
   "frameworks": {
@@ -24,5 +25,14 @@
     "emitEntryPoint": true,
     "preserveCompilationContext": true,
     "debugType": "portable"
-  }
+  },
+
+  "publishOptions": {
+    "include": [
+        "Content",
+        "Views",
+        "web.config",
+        "appsettings.json"
+    ]
+ }
 }

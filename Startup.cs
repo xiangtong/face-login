@@ -30,6 +30,7 @@ namespace FaceLogin
             services.AddSession();
             services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
             services.Configure<MSApiKeyOption>(Configuration);
+            // services.Configure<IISOptions>(options => {  ... });  for deploy to iis
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
