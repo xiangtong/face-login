@@ -1,26 +1,65 @@
 @model FaceLogin.Models.LoginViewModel
-
-<fieldset>  
-    <legend>Login</legend>
-    <form asp-controller="User" asp-action="Login" method="post">
-        <span class="error" asp-validation-for="LEmail"></span></br>
-        @{
-            if(ViewBag.loginemailexist!=null)
-            {
-                <span class="error">@ViewBag.loginemailexist</span><br>
-            }
+<div class="col-sm-6 msf-form">
+     @{
+        if(ViewBag.user!=null && ViewBag.user.UserId!=9 && ViewBag.ifhasimage!=null && ViewBag.ifhasimage==true)
+        {
+            <div id="facelogindiv">
+                <p>Hi @ViewBag.user.FirstName &nbsp, you could login with your face.</p>
+                <button class="btn" id="verify">Login with your face</button>
+                <button class="btn" id="changelogin">Change to tradition login form</button><br><br>
+                <div id="progress" style="display:none" >
+                    <br><br><i class="fa fa-spinner fa-spin fa-5x"></i>
+                </div>
+                <h3 id="loginresult" class="error loginerror" style="display: none"> </h3>
+                <div id="videodiv">
+                    <video id="video" width="640" height="480" autoplay="autoplay"></video>
+                    <canvas id="canvas" width="640" height="480" style="visibility:hidden" ></canvas>
+                </div>
+            </div>
         }
-        <label asp-for="LEmail"></label>
-        <input asp-for="LEmail"/></br>
-        <span class="error" asp-validation-for="LPassword"></span></br>
-        @{
-            if(ViewBag.loginpassword!=null)
-            {
-                <span class="error">@ViewBag.loginpassword</span><br>
-            }
+        else if(ViewBag.user==null || ViewBag.user.UserId==9)
+        {
+            <div id="facelogindiv">     
+                <p>Hi, please use one of Gregory Peck's picture to login.</p>
+                <button class="btn" id="verify">Login with Peck's picture</button>
+                <button class="btn" id="changelogin">Change to tradition login form</button><br><br>
+                <div id="progress" style="display:none" >
+                    <br><br><i class="fa fa-spinner fa-spin fa-5x"></i>
+                </div>
+                <h3 id="loginresult" class="error loginerror" style="display: none"> </h3>
+                <div id="videodiv">
+                    <video id="video" width="640" height="480" autoplay="autoplay"></video>
+                    <canvas id="canvas" width="640" height="480" style="visibility:hidden" ></canvas>
+                </div>
+            </div>            
         }
-        <label asp-for="LPassword"></label>
-        <input asp-for="LPassword"/></br>
-        <button type="submit">Login</button>
+    }
+    <form id="loginform" asp-controller="User" asp-action="Login" method="post" class="form-inline" style="display: none">
+        <h4>Login with username and password </h4>
+        <div class="form-group">
+            <span class="error" asp-validation-for="LEmail"></span></br>
+            @{
+                if(ViewBag.loginemailexist!=null)
+                {
+                    <span class="error">@ViewBag.loginemailexist</span><br>
+                }
+            }
+            <input placeholder="Email" asp-for="LEmail"/></br>
+        </div>
+        <div class="form-group">
+            <span class="error" asp-validation-for="LPassword"></span></br>
+            @{
+                if(ViewBag.loginpassword!=null)
+                {
+                    <span class="error">@ViewBag.loginpassword</span><br>
+                }
+            }
+            <input placeholder="Password" asp-for="LPassword"/></br>
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <button type="button" class="btn" id="changelogin2">Change to Face Login</button>
     </form>
-</fieldset>
+    @if(ViewBag.fromloginform!=null){
+        <div id="fromloginform"></div>
+    }
+</div>

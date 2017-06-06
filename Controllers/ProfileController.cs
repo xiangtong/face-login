@@ -40,7 +40,7 @@ public class ProfileController : Controller
                 // int userid=(int)Uid;
                 User curuser = _context.users
                     .SingleOrDefault(user => user.UserId==userid);
-                if(curuser.RegImgUrl!=null)
+                if(curuser.RegImgUrl!=null && curuser.RegImgUrl!="")
                 {
                     var filename= curuser.RegImgUrl;
                     var webRoot = _env.WebRootPath;

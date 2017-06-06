@@ -1,28 +1,34 @@
 @model FaceLogin.Models.RegisterViewModel
-<fieldset>
-<legend>Register</legend>
-    <form asp-controller="User" asp-action="Register" method="post">
-        <span class="error" asp-validation-for="FirstName"></span></br>
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName"/></br>
-        <span class="error" asp-validation-for="LastName"></span></br>
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName"/></br>
-        <span class="error" asp-validation-for="Email"></span></br>
-        @{
-            if(ViewBag.emailexist!=null)
-            {
-                <span class="error">@ViewBag.emailexist</span><br>
+
+<div class="col-sm-6 msf-form">
+    <form asp-controller="User" asp-action="Register" method="post" class="form-inline">
+        <h4>Sign up now! </h4>
+        <div class="form-group">
+            <span class="error" asp-validation-for="FirstName"></span></br>
+            <input placeholder="FirstName"  asp-for="FirstName"/></br>
+        </div>
+        <div class="form-group">
+            <span class="error" asp-validation-for="LastName"></span></br>
+            <input placeholder="LastName" asp-for="LastName"/></br>
+        </div>
+        <div class="form-group">
+            <span class="error" asp-validation-for="Email"></span></br>
+            @{
+                if(ViewBag.emailexist!=null)
+                {
+                    <span class="error">@ViewBag.emailexist</span><br>
+                }
             }
-        }
-        <label asp-for="Email"></label>
-        <input asp-for="Email"/></br>
-        <span class="error" asp-validation-for="Password"></span></br>
-        <label asp-for="Password"></label>
-        <input asp-for="Password"/></br>
-        <span class="error" asp-validation-for="ConfirmPassword"></span></br>
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword"/></br>
-        <button type="submit">Register</button>
+            <input placeholder="Email" asp-for="Email"/></br>
+        </div>
+        <div class="form-group">
+            <span class="error" asp-validation-for="Password"></span></br>
+            <input placeholder="Password"  asp-for="Password"/></br>
+        </div>
+        <div class="form-group">
+            <span class="error" asp-validation-for="ConfirmPassword"></span></br>
+            <input placeholder="Confirm Password"  asp-for="ConfirmPassword"/></br>
+        </div>
+        <button type="submit" class="btn">Sign Up</button>
     </form>
-</fieldset>
+</div>

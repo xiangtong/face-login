@@ -42,7 +42,7 @@ namespace FaceLogin.Controllers
                     int userid = Int32.Parse(uid);
                     User user =_context.users 
                                 .SingleOrDefault(u=>u.UserId==userid);
-                    if(user!=null && user.RegImgUrl!=null)
+                    if(user!=null && user.RegImgUrl!=null && user.RegImgUrl!="")
                     {
                         ViewBag.ifhasimage=true;
                     }
@@ -123,6 +123,7 @@ namespace FaceLogin.Controllers
                     }
                 }
             }
+            ViewBag.fromloginform=1;
             return View("Index");
         }
 
@@ -143,6 +144,9 @@ namespace FaceLogin.Controllers
             if(Uid==null)
             {
                 return Json(new {result="fail"});
+            }
+            else if(Uid==9){
+                return Json(new {result="refused"});
             }
             else
             {
@@ -179,44 +183,76 @@ namespace FaceLogin.Controllers
         public JsonResult ImgLogin(string img)
         {
             string uid=Request.Cookies["uid"];
+            if(img==null||img==""){
+                return Json(new {result="fail"});
+            }
+            int userid;
             if(uid==null || uid=="")
             {
-               return Json(new {result="fail"});
+                userid=9;
+            //    return Json(new {result="fail"});
             }
             else
             { 
-                int userid = Int32.Parse(uid);
-                var parts = img.Split(new char[] { ',' }, 2);
-                Byte[] newbytes = Convert.FromBase64String(parts[1]);
-                // string filename =string.Format("images/{0}-reg.png", userid.ToString());
+                userid = Int32.Parse(uid);
+            }
+            var parts = img.Split(new char[] { ',' }, 2);
+            Byte[] newbytes = Convert.FromBase64String(parts[1]);
+            // string filename =string.Format("images/{0}-reg.png", userid.ToString());
+            User curuser= _context.users.SingleOrDefault(user => user.UserId == userid);
+            string filename=curuser.RegImgUrl;
+            var webRoot = _env.WebRootPath;
+            var regfile = System.IO.Path.Combine(webRoot, filename);
+            Byte[] regimgcontent = System.IO.File.ReadAllBytes(regfile);
+            string msapikey=_msoptions.MSApiKey;
+            string faceid1;
+            string faceid2;
+            faceid1=MSFaceApiRequest.FaceDetect(msapikey,newbytes).Result;
+            Console.WriteLine($"Faceid1:{faceid1}");
+            faceid2=MSFaceApiRequest.FaceDetect(msapikey,regimgcontent).Result;
+            Console.WriteLine($"Faceid2:{faceid2}");
+            var VerifyResult = new Dictionary<string, object>();
+            Console.WriteLine($"Verify Response: {VerifyResult}");
+            VerifyResult=MSFaceApiRequest.FaceVerify(msapikey,faceid1,faceid2).Result;
+            Boolean ifidentical=Convert.ToBoolean(VerifyResult["isIdentical"]);
+            double confidence=Convert.ToDouble(VerifyResult["confidence"]);
+            Console.WriteLine($"isIdentical: {ifidentical}");
+            Console.WriteLine($"confidence: {confidence}");
+            if(ifidentical==true &&confidence>0.5)
+            {
+                HttpContext.Session.SetInt32("UserId", curuser.UserId);
+                HttpContext.Session.SetString("isIdentical",ifidentical.ToString());
+                HttpContext.Session.SetString("confidence",confidence.ToString());
+                CookieOptions options = new CookieOptions();
+                options.Expires = DateTime.Now.AddDays(3650);
+                Response.Cookies.Append("uid", curuser.UserId.ToString(),options);
+                return Json(new {result="success"});;                         
+            }
+            else
+            {
+                return Json(new {result="fail"}); 
+            }                
+        }
+
+        [HttpGet]
+        [Route("/deleteimg")]
+        public JsonResult deleteRegImg()
+        {
+            int? Uid = HttpContext.Session.GetInt32("UserId");
+            if(Uid==null)
+            {
+                return Json(new {result="fail"});
+            }
+            else if(Uid==9){
+                return Json(new {result="refused"});
+            }
+            else
+            {
+                int userid=(int)Uid;
                 User curuser= _context.users.SingleOrDefault(user => user.UserId == userid);
-                string filename=curuser.RegImgUrl;
-                var webRoot = _env.WebRootPath;
-                var regfile = System.IO.Path.Combine(webRoot, filename);
-                Byte[] regimgcontent = System.IO.File.ReadAllBytes(regfile);
-                string msapikey=_msoptions.MSApiKey;
-                string faceid1;
-                string faceid2;
-                faceid1=MSFaceApiRequest.FaceDetect(msapikey,newbytes).Result;
-                faceid2=MSFaceApiRequest.FaceDetect(msapikey,regimgcontent).Result;
-                var VerifyResult = new Dictionary<string, object>();
-                VerifyResult=MSFaceApiRequest.FaceVerify(msapikey,faceid1,faceid2).Result;
-                Boolean ifidentical=Convert.ToBoolean(VerifyResult["isIdentical"]);
-                double confidence=Convert.ToDouble(VerifyResult["confidence"]);
-                if(ifidentical==true &&confidence>0.7)
-                {
-                    HttpContext.Session.SetInt32("UserId", curuser.UserId);
-                    HttpContext.Session.SetString("isIdentical",ifidentical.ToString());
-                    HttpContext.Session.SetString("confidence",confidence.ToString());
-                    CookieOptions options = new CookieOptions();
-                    options.Expires = DateTime.Now.AddDays(3650);
-                    Response.Cookies.Append("uid", curuser.UserId.ToString(),options);
-                    return Json(new {result="success"});;                         
-                }
-                else
-                {
-                    return Json(new {result="fail"}); 
-                }  
+                curuser.RegImgUrl="";
+                _context.SaveChanges(); 
+                return Json(new {result="success"});   
             }                 
         }
         // [HttpGet]

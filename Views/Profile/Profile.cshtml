@@ -1,38 +1,98 @@
 @using FaceLogin.Models
 @model FaceLogin.Models.User
 <script src="~/js/takeimg.js" asp-append-version="true"></script>
-
-<h1>Welcome &nbsp&nbsp &nbsp @Model.FirstName  </h1>
-<a href="/logout">Log Out</a>
-<h3> @ViewData["ifidentical"]</h3>
-<h3>@ViewData["confidence"]</h3>
-@{
-    if(@ViewBag.imageurl!=null)
+<nav class="navbar transparent navbar-inverse">
+    <div class="nav navbar-nav navbar-center">
+        <h2> Welcome:&nbsp&nbsp&nbsp @Model.FirstName &nbsp&nbsp&nbsp</h2>
+    </div>
+    <div class="nav navbar-nav navbar-right">
+        <a href="/logout" ><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+    </div>
+</nav>
+<!--<div id="mainboday">-->
+    @if(@ViewData["ifidentical"]!=null)
     {
-        <div id="haveimage"> 
-            <p>This is your current face picture for login</p>
-            <img id="faceimage" src=@ViewBag.imageurl width="640" height="480" />
-            <button id="displayvideo1">Click to change your picture </button>
+        <div class="row">
+                <div class="col-sm-2"></div>
+                <div id="regresult" class="col-sm-8">
+                    <h3>Pictures verification result from MS API</h3>
+                    <p><b>Is Identical: @ViewData["ifidentical"] &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Similarity Degree: @ViewData["confidence"]<b></p>
+                </div>
+                <div class="col-sm-2"></div>
         </div>
     }
-    else
-    {
-        <div id="haveimage" style="display: none;">
-            <p>This is your current face picture for login</p>
-            <img id="faceimage" src=@ViewBag.imageurl width="640" height="480" />
-            <button id="displayvideo1">Click to change your picture </button>
+  
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div id="userinfo" class="col-sm-4">
+            <h3>Your information:</h3>
+            <p>Firstname:</p>
+            <h4>@Model.FirstName</h4>
+            <p>Lastname:</p>
+            <h4>@Model.LastName</h4>
+            <p>Email:</p>
+            <h4>@Model.Email</h4>
         </div>
-        <div id="noimage" >
-            <p>You could take a picture of your face for later login.</p>
-            <button id="displayvideo2">Click to take a picture </button>
+        <div id="profilevideodiv" class="col-sm-7">
+            @{
+                if(@ViewBag.imageurl!=null)
+                {
+                    <div id="haveimage"> 
+                        <h3>This is your current face picture for login</h3>
+                        <img id="faceimage" src=@ViewBag.imageurl width="640" height="480" />
+                        <div id="deleteprogress" style="display:none" >
+                             <br><br><i class="fa fa-spinner fa-spin fa-4x"></i>
+                        </div>
+                        @if(@Model.UserId==9)
+                        {
+                            <button class="btn" id="displayvideo1" disabled>Click to change your picture </button>
+                            <button class="btn" id="deleteimage" disabled>Click to delete your picture </button>
+                            <p>Gregory Peck is a demo user, you could not change or delete picture of him.</p>
+                        }
+                        else if(@Model.UserId!=9){
+                            <button class="btn" id="displayvideo1">Click to change your picture </button>
+                            <button class="btn" id="deleteimage" >Click to delete your picture </button>
+                        }
+                    </div>
+                    <div id="noimage" style="display: none;" >
+                        <h3>You could take a picture of your face for later login.</h3>
+                        <button class="btn" id="displayvideo2">Click to take a picture </button>
+                    </div>
+                }
+                else
+                {
+                    <div id="haveimage" style="display: none;">
+                        <h3>This is your current face picture for login</h3>
+                        <img id="faceimage" width="640" height="480" />
+                        @if(@Model.UserId==9)
+                        {
+                            <button class="btn" id="displayvideo1" disabled>Click to change your picture </button>
+                            <button class="btn" id="deleteimage" disabled>Click to delete your picture </button>
+                            <p>Gregory Peck is a demo user, you could not change or delete picture of him.</p>
+                        }
+                        else if(@Model.UserId!=9){
+                            <button class="btn" id="displayvideo1">Click to change your picture </button>
+                            <button class="btn" id="deleteimage" >Click to delete your picture </button>
+                        }
+                    </div>
+                    <div id="noimage" >
+                        <h3>You could take a picture of your face for later login.</h3>
+                        <button class="btn" id="displayvideo2">Click to take a picture </button>
+                    </div>
+                }
+            }
+            <div id="videodiv" style="display: none;">
+                <p> Click save to save or update you face as the credential for later login</p>
+                <video id="video" width="640" height="480" autoplay="autoplay"></video>
+                <div id="progress" style="display:none" >
+                    <br><br><i class="fa fa-spinner fa-spin fa-4x"></i>
+                </div>
+                <button class='btn btn1' ID="snap"> Save </button>
+                <button class='btn btn1' ID="cancelsnap" > Cancel </button><br><br><br><br><br><br><br><br><br>
+                <canvas id="canvas" width="640" height="480" style="visibility:hidden" ></canvas>
+            </div>
         </div>
-    }
-}
-<div id="videodiv" style="display: none;">
-    <p> Click save to save or update you face as the credential for later login</p>
-    <button ID="snap" > Save </button><br><br><br><br>
-    <video id="video" width="640" height="480" autoplay="autoplay"></video><br><br><br><br><br><br><br><br>
-    <canvas id="canvas" width="640" height="480" style="visibility:hidden" ></canvas>
-</div>
+    </div>
+<!--</div>-->
 
 

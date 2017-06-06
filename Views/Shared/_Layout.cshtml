@@ -3,20 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FaceLogin</title>
-    
-    <link rel="stylesheet" href="~/css/site1.css" />
+    <title> Face Login</title>
+    <link rel="shortcut icon" href="~/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">   
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js" asp-fallback-src="~/lib/jquery/dist/jquery.js" asp-fallback-test="window.jQuery"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/form-elements.css">
+    <link rel="stylesheet" href="~/css/media-queries.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <!--<link rel="stylesheet" href="~/css/site1.css" />-->
 </head>
 <body>
     <div class="container body-content">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.js"
-                asp-fallback-test="window.jQuery">
-        </script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         @RenderBody()
     </div>
     @RenderSection("scripts", required: false)
+    <script src="~/js/jquery.backstretch.min.js"></script>
+    <!--<script src="~/js/site.js"></script>-->
 </body>
 </html>

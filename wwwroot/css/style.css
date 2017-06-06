@@ -1,0 +1,119 @@
+/** { border: 1px dashed white; }*/
+body {
+	background: #333;
+	/*background: grey;*/
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    line-height: 24px;
+}
+.container{
+	padding: 0;
+}
+#regresult{
+	text-align:center;
+	color: red;
+}
+#profilevideodiv{
+	text-align: center;
+}
+/*#userinfo{
+	padding-left: 40%;
+}*/
+.error{
+	color: white;
+	font-weight: bold;
+	font-size: 12px;
+}
+.loginerror{
+	color: red;
+	font-size: 16px;
+}
+strong { font-weight: 700; }
+
+a, a:hover, a:focus {
+	color: #a93a52;
+	text-decoration: none;
+    -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
+}
+
+h1, h2 {
+	margin-top: 10px;
+	font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 44px;
+}
+
+img { max-width: 100%; }
+
+::-moz-selection { background: #a93a52; color: #fff; text-shadow: none; }
+::selection { background: #a93a52; color: #fff; text-shadow: none; }
+
+/***** Description *****/
+
+.description-container {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+.description-title { padding-bottom: 10px; }
+.description-text { opacity: 0.8; }
+
+.description-text a { color: #fff; border: 0; }
+.description-text a:hover,
+.description-text a:focus { color: #fff; border-bottom: 1px dotted #fff; }
+
+.description-text .divider-1 { margin-top: 50px; }
+
+
+/***** Multi Step Form *****/
+
+.msf-container { padding-bottom: 80px; text-align: center; }
+
+.msf-form h4 {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-weight: 700;
+	line-height: 26px;
+}
+
+form{width: 100%;}
+.msf-form form .form-group { margin-bottom: 0;}
+.form-group{ display: block;width: 100%;padding-top: 0;}
+
+.msf-form form button.btn { min-width: 110px; margin-top: 25px; margin-left: 5px; margin-right: 5px; }
+.msf-form form p { opacity: 0.8; }
+
+/*#progress{
+	color:rgb(187,188,189);
+}*/
+
+#videodiv{
+	padding-top: 0;
+}
+
+.navbar.transparent.navbar-inverse {
+	border-width: 0px;
+	-webkit-box-shadow: 0px 0px;
+	box-shadow: 0px 0px;
+	background-color: rgba(0,0,0,0.1);
+	background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
+	background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+	background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+	height: 70px;
+	margin: 0;
+}
+.navbar-nav.navbar-center {
+   position: absolute;
+   left: 50%;
+   transform: translatex(-50%);
+ }
+.navbar-nav.navbar-right {
+  position: absolute;
+  right: 4%;
+  top:30%;
+  font-size: 16px;
+ }
