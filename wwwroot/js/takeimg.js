@@ -12,16 +12,26 @@ $(document).ready(function(){
 
     // Prefer camera resolution nearest to 1280x720.
     var constraints = { audio: false, video: { width: 1280, height: 720 } };
+    var checkcamera=navigator.mediaDevices
+    if(!checkcamera){
+        $("#facelogindiv").css('display','none'); 
+        $("#changelogin2").css('display','none'); 
+        $("#cameraerrornotifyinfo").text("Sorry, your browser could not access camera. Please use Chrome or Firefox for face login.")
+        $("#cameraerrornotify").css('display','block')  
+            cameraerrornotify        
+        $("#loginform").css('display','block')          
+    } else {
+        navigator.mediaDevices.getUserMedia(constraints)
+                .then(function (mediaStream) {
+                    var video = $("#video")[0];
+                    video.srcObject = mediaStream;
+                    video.onloadedmetadata = function (e) {
+                        video.play();
+                    };
+                })
+                .catch(function (err) { console.log(err.name + ": " + err.message); }); 
+    }
 
-    navigator.mediaDevices.getUserMedia(constraints)
-            .then(function (mediaStream) {
-                var video = $("#video")[0];
-                video.srcObject = mediaStream;
-                video.onloadedmetadata = function (e) {
-                    video.play();
-                };
-            })
-            .catch(function (err) { console.log(err.name + ": " + err.message); }); 
 
     $("#snap").click(function(){
         if (video.readyState == 4) {
